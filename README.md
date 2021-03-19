@@ -59,5 +59,20 @@ Installation
   in the modules because ``event.xml`` will have already been written to
   the event's current directory by ``sm_queue``.
 
+Aftershock exclusion
+------------
+
+You may have noticed there are two settings in the aqms_queue.conf file for the aftershock exclusion feature.  If you provide a non-zero value for the "aftershock" value, aftershock exclusion will be used.  The "emaglimit" value will limit the exclusion to this value's amount below the original foreshock magnitude value.  Here's an example to help illustrate.  Assuming you have set the values of these settings to the following-> aftershock = 5.5   emaglimit = 2
+
+If the event is over M5.5, aqms_queue may define an aftershock zone for it utilizing the aftershock.py library.  At this point it will either build a new local sqlite database (similar to the ones Shakemap v4 already uses for operations), or use an existing aftershock database built on an earlier execution.  It will query the database to see if the event falls within an existing aftershock zone.  If it does not, then it creates one for the event.  The aftershock zone is defined using a hexagon to approximate a circle on the map, centered at the event epicenter, with the radius in kilometers determined by:
+
+```
+$rad = 10**(0.69*$mag - 3.22);
+Wells and Coppersmith (1994) Surface rupture length (all slip types) to magnitude
+```
+The magnitude exclude level is set at 2 points below the main shock magnitude.  So in the case of a M6.0 event, the exclusion threshold would be set at M4.0.  So any events below M4.0 that fall within the exclusion region would not have the event sent to the Shakemap v4 system for processing.
+
+
+
 These modules are provided as-is, with no guarantee of anything. 
 See the license file. 
