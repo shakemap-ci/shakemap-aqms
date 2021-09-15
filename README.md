@@ -72,6 +72,16 @@ Wells and Coppersmith (1994) Surface rupture length (all slip types) to magnitud
 ```
 The magnitude exclude level is set at 2 points below the main shock magnitude.  So in the case of a M6.0 event, the exclusion threshold would be set at M4.0.  So any events below M4.0 that fall within the exclusion region would not have the event sent to the Shakemap v4 system for processing.
 
+As part of normal processing, a cleanup procedure also runs and automatically removes any aftershock exclusion zones that have passed their expiration date.
+The number of days for an aftershock zone to be kept is calculated as 14.5*(($oldmag - 5.24)**2) + 10. 
+This approximates to these values:
+
+           M5.5-M6.0: 10 days
+           M6.0-M6.5: 20 days
+           M6.5-M7.0: 30 days
+           M7.0-M8.0: 60 days
+           M8.0+: 120 days
+
 
 
 These modules are provided as-is, with no guarantee of anything. 
