@@ -258,8 +258,9 @@ class AQMSDb2XMLModule(CoreModule):
             for row in cursor:
                 (net, sta, chan, loc, amp, amptype, cflag, quality,
                  units) = row
-                loc = loc.replace(' ', '-')
+                loc = loc.replace(' ', '--')
                 netsta = net + '.' + sta
+                loc_chan = loc + "." + chan
                 try:
                     sd = stadict[netsta][loc][chan]
                 except KeyError:
@@ -308,7 +309,7 @@ class AQMSDb2XMLModule(CoreModule):
                     imt = 'psa30'
                 if units == 'cmss':
                     amp = amp / 9.81
-                newrow = (netsta, chan, imt, amp, sd['lat'], sd['lon'],
+                newrow = (netsta, loc_chan, imt, amp, sd['lat'], sd['lon'],
                           net, cflag, sd['staname'], sd['staloc'],
                           sd['netdesc'])
                 amprows.append(newrow)
