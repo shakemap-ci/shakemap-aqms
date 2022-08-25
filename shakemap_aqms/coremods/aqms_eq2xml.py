@@ -8,7 +8,7 @@ import os.path
 from shakemap.coremods.base import CoreModule
 from shakemap.utils.config import get_config_paths
 from shakemap_aqms.util import get_aqms_config, get_eqinfo
-from shakelib.rupture.origin import write_event_file
+from impactutils.rupture.origin import write_event_file
 
 
 class AQMSEq2XMLModule(CoreModule):
